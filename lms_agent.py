@@ -2,9 +2,11 @@
 import os
 import json
 import asyncio
+import subprocess
 from datetime import datetime
 from playwright.async_api import async_playwright
 from pdf_downloader import download_pdf_directly
+from whatsapp_payload import build_payload
 
 # Load configuration from config.json
 with open("config.json", "r") as f:
@@ -84,10 +86,27 @@ async def run():
                 with open(comment_path, "w", encoding="utf-8") as f:
                     f.write(comment_text.strip()) 
 
-        if not found_target_date:
-            print(f"No content found for target date: {TARGET_DATE}")
 
         await browser.close()
+
+        # logic to prepare message for sending to whatsapp group
+        # on confirmation this will send the message to the target group
+        if found_target_date:
+            choice = input("🛠️ Do you want to build the WhatsApp payload? (y/n): ").strip().lower()
+            if choice == "y":
+                build_payload(BASE_DOWNLOAD_DIR, TARGET_DATE)
+                print("✅ WhatsApp payload prepared.")
+
+                send_choice = input("📤 Do you want to send the message to the WhatsApp group? (y/n): ").strip().lower()
+                if send_choice == "y":
+                    subprocess.run(["node", "send_whatsapp.js"])
+                    print("🎉 WhatsApp message sent.")
+                else:
+                    print("🚫 Message sending skipped.")
+            else:
+                print("🚫 Payload building skipped.")
+        else:
+            print(f"⚠️ No content found for target date: {TARGET_DATE}")
 
 if __name__ == "__main__":
     asyncio.run(run())
