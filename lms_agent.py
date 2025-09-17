@@ -76,6 +76,14 @@ async def run():
                     await download.save_as(download_path)
                     print(f"Downloaded: {download_path}")
 
+	    # Extract comment if available
+            comment_el = await block.query_selector("div.col-lg-9.col-md-9.col-sm-9 label.col-form-label p")
+            if comment_el:
+                comment_text = await comment_el.inner_text()
+                comment_path = os.path.join(dated_subfolder, "comment.txt")
+                with open(comment_path, "w", encoding="utf-8") as f:
+                    f.write(comment_text.strip()) 
+
         if not found_target_date:
             print(f"No content found for target date: {TARGET_DATE}")
 
