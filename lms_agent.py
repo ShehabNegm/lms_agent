@@ -6,6 +6,7 @@ import subprocess
 from datetime import datetime
 from playwright.async_api import async_playwright
 from pdf_downloader import download_pdf_directly
+from google_drive_downloader import download_drive_file
 from whatsapp_payload import build_payload
 
 # Load configuration from config.json
@@ -85,6 +86,13 @@ async def run():
                 comment_path = os.path.join(dated_subfolder, "comment.txt")
                 with open(comment_path, "w", encoding="utf-8") as f:
                     f.write(comment_text.strip()) 
+
+            # Google Drive links
+            drive_link_els = await block.query_selector_all("div.row span a[href]")
+            for drive_el in drive_link_els:
+                href = await drive_el.get_attribute("href")
+                if href and "drive.google.com" in href:
+                    await download_drive_file(href, subject_name, TARGET_DATE)
 
 
         await browser.close()
