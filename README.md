@@ -30,14 +30,26 @@ lms_agent/
 
 ## Usage
 
-1. **Set up WhatsApp Session**  
-   Run the application and scan the QR code to authenticate with WhatsApp.
+1. **Set up your own config.json** 
+   {
+  "username": "lms_username",
+  "password": "lms_password",
+  "login_url": "lms_url",
+  "dashboard_url": "updated daily subjects dashboard url",
+  "target_date": "format dd/mm/yyyy default is today()",
+  "base_url": "base url for files downlaoding",
+  "group_id": "whatsapp group id"
+}
+   
 
-2. **Configure Group**  
+2. **Configure whatsapp Group**  
    Edit `config.json` to specify your WhatsApp group ID.
 
 3. **Run the Agent**  
-   Use `send_whatsapp.js` to start sending daily updates to the group.
+   Use `.\lms_agent.py` to start the agent.
+
+4. **Set up WhatsApp Session**
+   Run the application and scan the QR code to authenticate with WhatsApp. 
 
 ---
 
