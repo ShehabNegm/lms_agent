@@ -6,15 +6,15 @@
 
 ## Features
 
-- Downloads new subject files, posts, and comments from LMS every day.
-- Sends collected materials and messages to a WhatsApp group for parents.
-- Automates WhatsApp messaging using the Baileys library.
+- **Automated LMS Sync**: Downloads new subject files, posts, and comments from LMS every day.
+- **WhatsApp Notifications**: Sends collected materials and messages to a WhatsApp group for parents.
+- **Baileys Integration**: Automates WhatsApp messaging using the [Baileys](https://github.com/adiwajshing/Baileys) library.
 
 ---
 
 ## Project Structure
 
-```
+```plaintext
 lms_agent/
 ├── messaging/
 │   ├── whatsapp.js         # Initializes Baileys socket for WhatsApp
@@ -30,36 +30,48 @@ lms_agent/
 
 ## Usage
 
-1. **Set up your own config.json** 
-   {
+### 1. Set up `config.json`
+
+Create or edit your `config.json` with the following fields:
+
+```json
+{
   "username": "lms_username",
   "password": "lms_password",
   "login_url": "lms_url",
   "dashboard_url": "updated daily subjects dashboard url",
-  "target_date": "format dd/mm/yyyy default is today()",
-  "base_url": "base url for files downlaoding",
+  "target_date": "format dd/mm/yyyy, default is today()",
+  "base_url": "base url for files downloading",
   "group_id": "whatsapp group id"
 }
-   
+```
 
-2. **Configure whatsapp Group**  
-   Edit `config.json` to specify your WhatsApp group ID.
+### 2. Configure WhatsApp Group
 
-3. **Run the Agent**  
-   Use `.\lms_agent.py` to start the agent.
+Edit the `group_id` field in `config.json` to specify your WhatsApp group.
 
-4. **Set up WhatsApp Session**
-   Run the application and scan the QR code to authenticate with WhatsApp. 
+### 3. Run the Agent
+
+Use the following command to start the agent:
+
+```sh
+python lms_agent.py
+```
+
+### 4. Set up WhatsApp Session
+
+- Run the application.
+- Scan the QR code that appears in the terminal to authenticate with WhatsApp.
 
 ---
 
 ## Dependencies
 
-- [Baileys](https://github.com/adiwajshing/Baileys) - WhatsApp Web API library for Node.js
+- [Baileys](https://github.com/adiwajshing/Baileys) &mdash; WhatsApp Web API library for Node.js
 
 ---
 
 ## License
 
-This project is provided for educational and automation purposes.
+This project is provided for educational and automation purposes only.
 
