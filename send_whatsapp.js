@@ -1,51 +1,84 @@
-const venom = require('venom-bot');
-const fs = require('fs');
-const path = require('path');
-const chromiumPath = require('puppeteer').executablePath();
+const {
+  default: makeWASocket,
+  fetchLatestBaileysVersion,
+  useMultiFileAuthState,
+} = require("@whiskeysockets/baileys");
 
-// Load config
-const configPath = path.join(__dirname, 'config.json');
-const payloadPath = path.join(__dirname, 'whatsapp_payload.json');
+const qrcode = require("qrcode-terminal");
+const fs = require("fs");
+const path = require("path");
+const mime = require("mime-types");
+const { Boom } = require("@hapi/boom");
 
-if (!fs.existsSync(configPath)) {
-  console.error("❌ config.json not found.");
-  process.exit(1);
-}
+// Load config and payload
+const config = JSON.parse(fs.readFileSync("config.json", "utf8"));
+const payload = JSON.parse(fs.readFileSync("whatsapp_payload.json", "utf8"));
+const groupId = config.group_id; // e.g. "1234567890-123456@g.us"
 
-if (!fs.existsSync(payloadPath)) {
-  console.error("❌ whatsapp_payload.json not found. Run the Python script first.");
-  process.exit(1);
-}
+async function startBot() {
+  const { version } = await fetchLatestBaileysVersion();
+  const { state, saveCreds } = await useMultiFileAuthState("baileys_auth");
 
-const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-const payload = JSON.parse(fs.readFileSync(payloadPath, 'utf8'));
+  const sock = makeWASocket({
+    version,
+    auth: state,
+    browser: ["LMS Agent", "Chrome", "20.0"],
+  });
 
-const groupId = config.group_id;
+  sock.ev.on("creds.update", saveCreds);
 
-venom
-  .create({
-    session: 'lms-agent-session',
-    multidevice: true,
-    puppeteerOptions: {
-      headless: 'new', // ✅ Use new headless mode
-      executablePath: chromiumPath, // ✅ WSL path to Chrome
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+  sock.ev.on("connection.update", async (update) => {
+    const { connection, qr, lastDisconnect } = update;
+
+    if (qr) {
+      console.log("📱 Scan this QR using WhatsApp → Linked Devices:");
+      qrcode.generate(qr, { small: true });
     }
-  })
-  .then(async (client) => {
-    try {
-      await client.sendText(groupId, payload.message);
-      console.log("✅ Message sent to group.");
 
-      for (const filePath of payload.attachments) {
-        const fileName = path.basename(filePath);
-        await client.sendFile(groupId, filePath, fileName, `File: ${fileName}`);
-        console.log(`📎 Sent file: ${fileName}`);
+    if (connection === "open") {
+      console.log("✅ WhatsApp connection established.");
+
+      // Send text message
+      try {
+        await sock.sendMessage(groupId, { text: payload.message });
+        console.log("📤 Message sent.");
+      } catch (err) {
+        console.error("❌ Failed to send message:", err);
       }
 
-      console.log("🎉 All files sent successfully.");
-    } catch (error) {
-      console.error("❌ Error sending WhatsApp message:", error);
+      // Send attachments
+      for (const filePath of payload.attachments || []) {
+        if (fs.existsSync(filePath)) {
+          const buffer = fs.readFileSync(filePath);
+          const mimeType = mime.lookup(filePath) || "application/octet-stream";
+          const fileName = path.basename(filePath);
+
+          try {
+           await sock.sendMessage(groupId, {
+  	   document: fs.readFileSync(filePath),
+           mimetype: mime.lookup(filePath) || "application/pdf",
+           fileName: path.basename(filePath),
+           }); 
+            console.log(`📎 Sent file: ${fileName}`);
+          } catch (err) {
+            console.error(`❌ Failed to send ${fileName}:`, err);
+          }
+        } else {
+          console.warn(`⚠️ File not found: ${filePath}`);
+        }
+      }
+
+      console.log("🎉 All files sent. Exiting..");
+      process.exit(0);
+    }
+
+    if (connection === "close") {
+      const shouldReconnect = (lastDisconnect?.error?.output?.statusCode !== 401);
+      console.log("❌ Connection closed. Reconnect:", shouldReconnect);
+      if (shouldReconnect) startBot();
     }
   });
+}
+
+startBot();
 

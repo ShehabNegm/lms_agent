@@ -94,6 +94,28 @@ async def run():
                 if href and "drive.google.com" in href:
                     await download_drive_file(href, subject_name, TARGET_DATE)
 
+            # Post extraction from <span class="col-form-label">
+            post_text = ""
+            post_span = await block.query_selector("span.col-form-label")
+            if post_span:
+                paragraphs = await post_span.query_selector_all("p")
+                for p in paragraphs:
+                    text = await p.inner_text()
+                    post_text += text.strip() + "\n"
+
+            # Post extraction from <div class="m-accordion__item-content">
+            accordion_div = await block.query_selector("div.m-accordion__item-content")
+            if accordion_div:
+                paragraphs = await accordion_div.query_selector_all("p")
+                for p in paragraphs:
+                    text = await p.inner_text()
+                    post_text += text.strip() + "\n"
+
+            # Save post.txt if any content found
+            if post_text.strip():
+                post_path = os.path.join(dated_subfolder, "post.txt")
+                with open(post_path, "w", encoding="utf-8") as f:
+                    f.write(post_text.strip())
 
         await browser.close()
 
