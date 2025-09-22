@@ -83,12 +83,19 @@ async def run():
                     log.info(f"Downloaded: {download_path}")
 
 	    # Extract comment if available
-            comment_el = await block.query_selector("div.col-lg-9.col-md-9.col-sm-9 label.col-form-label p")
-            if comment_el:
-                comment_text = await comment_el.inner_text()
+            comment_els = await block.query_selector_all("div.col-lg-9.col-md-9.col-sm-9 label.col-form-label p")
+            if comment_els:
+                comment_texts = []
+                for el in comment_els:
+                    text = await el.inner_text()
+                    if text.strip():
+                       comment_texts.append(text.strip())
+
+                full_comment = "\n\n".join(comment_texts)
                 comment_path = os.path.join(dated_subfolder, "comment.txt")
                 with open(comment_path, "w", encoding="utf-8") as f:
-                    f.write(comment_text.strip()) 
+                    f.write(full_comment)
+ 
 
             # Google Drive links
             drive_link_els = await block.query_selector_all("div.row span a[href]")
