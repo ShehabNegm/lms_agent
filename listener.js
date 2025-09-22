@@ -70,12 +70,10 @@ const getText = (msg) => {
       await sendText(sock, sender, "📤 Starting LMS agent…");
       log("🚀 Triggering LMS agent…");
 
-      exec("python3 whatsapp_payload.py && node send_whatsapp.js", async (err, stdout, stderr) => {
-        log("📟 Exec started");
+      exec("python3 lms_agent.py", async (err, stdout, stderr) => {
         if (err) {
           lastStatus = "❌ Failed to send.";
           log(`❌ Exec error: ${err.message}`);
-          log(`stderr: ${stderr}`);
           await sendText(sock, sender, "❌ Error during send.");
         } else {
           lastStatus = "✅ Content sent.";

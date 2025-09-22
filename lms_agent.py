@@ -126,13 +126,13 @@ async def run():
         # logic to prepare message for sending to whatsapp group
         # on confirmation this will send the message to the target group
         if found_target_date:
-            choice = input("🛠️ Do you want to build the WhatsApp payload? (y/n): ").strip().lower()
+            choice = "y" #input("🛠️ Do you want to build the WhatsApp payload? (y/n): ").strip().lower()
             if choice == "y":
                 build_payload(BASE_DOWNLOAD_DIR, TARGET_DATE)
                 print("✅ WhatsApp payload prepared.")
                 log.info("✅  WhatsApp payload prepared.")
 
-                send_choice = input("📤 Do you want to send the message to the WhatsApp group? (y/n): ").strip().lower()
+                send_choice = "y" #input("📤 Do you want to send the message to the WhatsApp group? (y/n): ").strip().lower()
                 if send_choice == "y":
                     subprocess.run(["node", "send_whatsapp.js"])
                     print("🎉 WhatsApp message sent.")
