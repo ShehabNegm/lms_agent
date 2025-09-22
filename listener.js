@@ -5,14 +5,23 @@ const sendDocument = require("./messaging/sendDocument");
 const log = require("./utils/logger");
 const { exec } = require("child_process");
 const fs = require("fs");
+
 const allowedSenders = [
-  "201oo1573240@s.whatsapp.net", // your number
-  "201124585522@s.whatsapp.net"  // 2nd number
+  "201001573240@s.whatsapp.net", // your number
+  "201124585522@s.whatsapp.net"  // second allowed number
 ];
 
-
-const passphrase = "magic69";
 let lastStatus = "Idle";
+
+const getText = (msg) => {
+  const m = msg.message;
+  if (!m) return "";
+  if (m.conversation) return m.conversation;
+  if (m.extendedTextMessage?.text) return m.extendedTextMessage.text;
+  if (m.imageMessage?.caption) return m.imageMessage.caption;
+  if (m.videoMessage?.caption) return m.videoMessage.caption;
+  return "";
+};
 
 (async () => {
   const sock = await createSocket();
@@ -30,99 +39,117 @@ let lastStatus = "Idle";
   sock.ev.on("messages.upsert", async ({ messages }) => {
     const msg = messages[0];
     const sender = msg.key.remoteJid;
+    const rawText = getText(msg);
+    const cleanText = rawText.replace(/\s+/g, " ").trim();
+
     console.log("🔍 Sender JID:", sender);
-    const text = msg.message?.conversation?.trim();
+    console.log("🔍 Raw text:", JSON.stringify(rawText));
+    log(`📩 Command received: ${cleanText}`);
 
-    if (sender !== allowedSender || !text) return;
-    log(`📩 Command received: ${text}`);
+    if (!allowedSenders.includes(sender)) {
+      console.log(`❌ Unauthorized sender: ${sender}`);
+      return;
+    }
 
-    if (text.startsWith("!send")) {
-      if (!text.includes(passphrase)) {
+    if (!cleanText) {
+      log("⚠️ Empty message received. Ignoring.");
+      return;
+    }
+
+    const parts = cleanText.split(" ");
+    const command = parts[0];
+    const arg = parts[1];
+
+    if (command === "!send") {
+      if (arg !== "magic69") {
         await sendText(sock, sender, "❌ Invalid passphrase.");
         return;
       }
 
       lastStatus = "Sending LMS content…";
       await sendText(sock, sender, "📤 Starting LMS agent…");
+      log("🚀 Triggering LMS agent…");
 
-      exec("python3 whatsapp_payload.py && node send_whatsapp.js", async (err) => {
+      exec("python3 whatsapp_payload.py && node send_whatsapp.js", async (err, stdout, stderr) => {
+        log("📟 Exec started");
         if (err) {
           lastStatus = "❌ Failed to send.";
-          log(err.message);
+          log(`❌ Exec error: ${err.message}`);
+          log(`stderr: ${stderr}`);
           await sendText(sock, sender, "❌ Error during send.");
         } else {
           lastStatus = "✅ Content sent.";
+          log(`✅ Exec success: ${stdout}`);
           await sendText(sock, sender, "✅ LMS content sent.");
         }
       });
     }
 
-    else if (text === "!status") {
+    else if (command === "!status") {
       await sendText(sock, sender, `📊 Status: ${lastStatus}`);
     }
 
-    else if (text === "!retry") {
+    else if (command === "!retry") {
       lastStatus = "Retrying LMS send…";
       await sendText(sock, sender, "🔁 Retrying…");
+      log("🔁 Retrying send_whatsapp.js");
 
-      exec("node send_whatsapp.js", async (err) => {
+      exec("node send_whatsapp.js", async (err, stdout, stderr) => {
         if (err) {
           lastStatus = "❌ Retry failed.";
-          log(err.message);
+          log(`❌ Retry error: ${err.message}`);
           await sendText(sock, sender, "❌ Retry failed.");
         } else {
           lastStatus = "✅ Retry successful.";
+          log(`✅ Retry success: ${stdout}`);
           await sendText(sock, sender, "✅ Retry successful.");
         }
       });
     }
 
-    else if (text === "!cancel") {
+    else if (command === "!cancel") {
       lastStatus = "Cancelled.";
       await sendText(sock, sender, "🛑 Operation cancelled.");
     }
 
-    else if (text === "!preview") {
+    else if (command === "!preview") {
       const payload = require("./whatsapp_payload.json");
-      let preview = `📅 *Preview for ${payload.date}*\n\n`;
-      for (const block of payload.subjects) {
+      if (!arg) {
+        let preview = `📅 *Preview for ${payload.date}*\n\n`;
+        for (const block of payload.subjects) {
+          const fileCount = block.attachments.length;
+          const hasComment = block.message.includes("*Comment*");
+          const hasPost = block.message.includes("*Post*");
+
+          preview += `📚 *${block.subject}*\n`;
+          preview += `📎 Files: ${fileCount}\n`;
+          if (hasComment) preview += `🗒️ Comment: ✅\n`;
+          if (hasPost) preview += `📢 Post: ✅\n\n`;
+        }
+        await sendText(sock, sender, preview.trim());
+      } else {
+        const subjectQuery = arg.toLowerCase();
+        const block = payload.subjects.find(s => s.subject.toLowerCase() === subjectQuery);
+        if (!block) {
+          await sendText(sock, sender, `❌ Subject '${subjectQuery}' not found.`);
+          return;
+        }
+
         const fileCount = block.attachments.length;
         const hasComment = block.message.includes("*Comment*");
         const hasPost = block.message.includes("*Post*");
 
-        preview += `📚 *${block.subject}*\n`;
+        let preview = `📚 *${block.subject}*\n`;
         preview += `📎 Files: ${fileCount}\n`;
         if (hasComment) preview += `🗒️ Comment: ✅\n`;
-        if (hasPost) preview += `📢 Post: ✅\n\n`;
+        if (hasPost) preview += `📢 Post: ✅\n`;
+
+        await sendText(sock, sender, preview.trim());
       }
-      await sendText(sock, sender, preview.trim());
     }
 
-    else if (text.startsWith("!preview ")) {
-      const subjectQuery = text.split(" ")[1].trim().toLowerCase();
-      const payload = require("./whatsapp_payload.json");
-      const block = payload.subjects.find(s => s.subject.toLowerCase() === subjectQuery);
-
-      if (!block) {
-        await sendText(sock, sender, `❌ Subject '${subjectQuery}' not found.`);
-        return;
-      }
-
-      const fileCount = block.attachments.length;
-      const hasComment = block.message.includes("*Comment*");
-      const hasPost = block.message.includes("*Post*");
-
-      let preview = `📚 *${block.subject}*\n`;
-      preview += `📎 Files: ${fileCount}\n`;
-      if (hasComment) preview += `🗒️ Comment: ✅\n`;
-      if (hasPost) preview += `📢 Post: ✅\n`;
-
-      await sendText(sock, sender, preview.trim());
-    }
-
-    else if (text.startsWith("!log")) {
-      const dateArg = text.split(" ")[1];
-      const date = dateArg === "today" ? new Date().toISOString().slice(0, 10) : dateArg;
+    else if (command === "!log") {
+      const date = arg === "today" ? new Date().toISOString().slice(0, 10) : arg;
       const path = `./logs/lms_log_${date}.txt`;
 
       if (!fs.existsSync(path)) {
@@ -130,11 +157,10 @@ let lastStatus = "Idle";
         return;
       }
 
-      const buffer = fs.readFileSync(path);
       await sendDocument(sock, sender, path);
     }
 
-    else if (text === "!help") {
+    else if (command === "!help") {
       const helpText = `
 🆘 *Available Commands:*
 - !send secret123 → Trigger LMS agent
@@ -150,7 +176,7 @@ let lastStatus = "Idle";
       await sendText(sock, sender, helpText.trim());
     }
 
-    else {
+    else if (command.startsWith("!")) {
       await sendText(sock, sender, "🤖 Unknown command. Type !help for options.");
     }
   });
