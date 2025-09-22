@@ -8,6 +8,7 @@ from playwright.async_api import async_playwright
 from pdf_downloader import download_pdf_directly
 from google_drive_downloader import download_drive_file
 from whatsapp_payload import build_payload
+from utils.logger import setup_logger
 
 # Load configuration from config.json
 with open("config.json", "r") as f:
@@ -19,6 +20,7 @@ LOGIN_URL = config.get("login_url")
 DASHBOARD_URL = config.get("dashboard_url")
 TARGET_DATE = config.get("target_date")
 BASE_URL = config.get("base_url")
+log = setup_logger()
 
 if not TARGET_DATE:
     TARGET_DATE = datetime.today().strftime('%d/%m/%Y')
@@ -78,6 +80,7 @@ async def run():
                     download_path = os.path.join(dated_subfolder, download.suggested_filename)
                     await download.save_as(download_path)
                     print(f"Downloaded: {download_path}")
+                    log.info(f"Downloaded: {download_path}")
 
 	    # Extract comment if available
             comment_el = await block.query_selector("div.col-lg-9.col-md-9.col-sm-9 label.col-form-label p")
@@ -95,27 +98,28 @@ async def run():
                     await download_drive_file(href, subject_name, TARGET_DATE)
 
             # Post extraction from <span class="col-form-label">
-            post_text = ""
-            post_span = await block.query_selector("span.col-form-label")
-            if post_span:
-                paragraphs = await post_span.query_selector_all("p")
-                for p in paragraphs:
-                    text = await p.inner_text()
-                    post_text += text.strip() + "\n"
+            if "Post by" in subject_name:
+                post_text = ""
+                post_span = await block.query_selector("span.col-form-label")
+                if post_span:
+                    paragraphs = await post_span.query_selector_all("p")
+                    for p in paragraphs:
+                        text = await p.inner_text()
+                        post_text += text.strip() + "\n"
 
-            # Post extraction from <div class="m-accordion__item-content">
-            accordion_div = await block.query_selector("div.m-accordion__item-content")
-            if accordion_div:
-                paragraphs = await accordion_div.query_selector_all("p")
-                for p in paragraphs:
-                    text = await p.inner_text()
-                    post_text += text.strip() + "\n"
+                # Post extraction from <div class="m-accordion__item-content">
+                accordion_div = await block.query_selector("div.m-accordion__item-content")
+                if accordion_div:
+                    paragraphs = await accordion_div.query_selector_all("p")
+                    for p in paragraphs:
+                        text = await p.inner_text()
+                        post_text += text.strip() + "\n"
 
-            # Save post.txt if any content found
-            if post_text.strip():
-                post_path = os.path.join(dated_subfolder, "post.txt")
-                with open(post_path, "w", encoding="utf-8") as f:
-                    f.write(post_text.strip())
+                # Save post.txt if any content found
+                if post_text.strip():
+                    post_path = os.path.join(dated_subfolder, "post.txt")
+                    with open(post_path, "w", encoding="utf-8") as f:
+                        f.write(post_text.strip())
 
         await browser.close()
 
@@ -126,17 +130,22 @@ async def run():
             if choice == "y":
                 build_payload(BASE_DOWNLOAD_DIR, TARGET_DATE)
                 print("✅ WhatsApp payload prepared.")
+                log.info("✅  WhatsApp payload prepared.")
 
                 send_choice = input("📤 Do you want to send the message to the WhatsApp group? (y/n): ").strip().lower()
                 if send_choice == "y":
                     subprocess.run(["node", "send_whatsapp.js"])
                     print("🎉 WhatsApp message sent.")
+                    log.info("🎉 WhatsApp message sent.")
                 else:
                     print("🚫 Message sending skipped.")
+                    log.info("🚫 Message sending skipped.")
             else:
                 print("🚫 Payload building skipped.")
+                log.info("🚫 Payload building skipped.")
         else:
             print(f"⚠️ No content found for target date: {TARGET_DATE}")
+            log.info(f"⚠ No content found for target date: {TARGET_DATE}")
 
 if __name__ == "__main__":
     asyncio.run(run())
