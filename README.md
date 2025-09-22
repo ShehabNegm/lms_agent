@@ -24,8 +24,12 @@ lms_agent/
 ├── send_whatsapp.js        # Main entry point for sending messages
 ├── config.json             # Configuration file containing WhatsApp group ID
 ├── whatsapp_payload.json   # Stores messages and attachments to be sent
-```
-
+|__ listener.js             # WhatsApp command listener
+|__ utils/                  # Unified logging utility
+|```  |___logger.js
+|     |___logger.py            
+|__ logs
+|    |__lms_log_YYYY-MM-DD.txt #daily LMS logs
 ---
 
 ## Usage

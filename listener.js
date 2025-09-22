@@ -61,7 +61,7 @@ const getText = (msg) => {
     const arg = parts[1];
 
     if (command === "!send") {
-      if (arg !== "magic69") {
+      if (arg !== "lmsHW") {
         await sendText(sock, sender, "❌ Invalid passphrase.");
         return;
       }
