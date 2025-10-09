@@ -1,0 +1,113 @@
+[2025-09-27T17:45:44.620Z] ✅ WhatsApp listener is live.
+[2025-09-27T17:46:12.841Z] 📩 Command received: احست
+[2025-09-27T17:46:13.030Z] 📩 Command received: 
+[2025-09-27T17:46:13.137Z] 📩 Command received: 
+[2025-09-27T17:46:13.388Z] 📩 Command received: 
+[2025-09-27T17:46:13.707Z] 📩 Command received: 
+[2025-09-27T17:46:14.012Z] 📩 Command received: 
+[2025-09-27T17:46:14.320Z] 📩 Command received: 
+[2025-09-27T17:46:14.582Z] 📩 Command received: 
+[2025-09-27T17:46:14.900Z] 📩 Command received: 
+[2025-09-27T17:46:15.163Z] 📩 Command received: https://www.facebook.com/share/p/1A2NZ4uZSo/
+[2025-09-27T17:46:15.214Z] 📩 Command received: https://www.facebook.com/share/p/1Q2jfiyEyj/
+[2025-09-27T17:46:15.426Z] 📩 Command received: https://www.facebook.com/share/p/1BfwWL3qVQ/
+[2025-09-27T17:46:15.846Z] 📩 Command received: 
+[2025-09-27T17:46:16.220Z] 📩 Command received: حد نزل V1.05؟ عشان بيقولوا إنها حلت مشكلة الresync إلى حد كبير
+[2025-09-27T17:46:16.435Z] 📩 Command received: Any issue for the DGS of CGC no 1?
+[2025-09-27T17:46:16.507Z] 📩 Command received: 
+[2025-09-27T17:46:16.517Z] 📩 Command received: 😮😮
+[2025-09-27T17:46:16.590Z] 📩 Command received: عندي
+[2025-09-27T17:46:16.665Z] 📩 Command received: 
+[2025-09-27T17:46:16.684Z] 📩 Command received: 
+[2025-09-27T17:46:16.746Z] 📩 Command received: 
+[2025-09-27T17:46:16.771Z] 📩 Command received: 
+[2025-09-27T17:46:16.827Z] 📩 Command received: 
+[2025-09-27T17:46:16.845Z] 📩 Command received: 
+[2025-09-27T17:46:16.905Z] 📩 Command received: 
+[2025-09-27T17:46:17.322Z] 📩 Command received: انا والله
+[2025-09-27T17:46:17.826Z] 📩 Command received: 
+[2025-09-27T17:46:17.876Z] 📩 Command received: Isolated and depressrized till check
+[2025-09-27T17:46:17.946Z] 📩 Command received: لذيذة
+[2025-09-27T17:46:18.064Z] 📩 Command received: بلا نلعب ولا
+[2025-09-27T17:46:18.253Z] 📩 Command received: 
+[2025-09-27T17:46:18.296Z] 📩 Command received: 
+[2025-09-27T17:46:18.383Z] 📩 Command received: 
+[2025-09-27T17:46:18.445Z] 📩 Command received: 
+[2025-09-27T17:46:18.782Z] 📩 Command received: شباب عاملين ايه
+[2025-09-27T17:46:18.970Z] 📩 Command received: ممكن اللينك
+[2025-09-27T17:46:19.347Z] 📩 Command received: شغال بس انت مش عارف تستخدمه
+[2025-09-27T17:46:19.647Z] 📩 Command received: حد جاي يا شباب
+[2025-09-27T17:46:19.752Z] 📩 Command received: 
+[2025-09-27T17:46:19.863Z] 📩 Command received: Ok I am checking
+[2025-09-27T17:46:20.228Z] 📩 Command received: 
+[2025-09-27T17:46:20.524Z] 📩 Command received: 
+[2025-09-27T17:46:20.867Z] 📩 Command received: 
+[2025-09-27T17:46:21.333Z] 📩 Command received: 
+[2025-09-27T17:46:21.595Z] 📩 Command received: 
+[2025-09-27T17:46:21.799Z] 📩 Command received: Can someone explain and show the correct answer
+[2025-09-27T17:46:21.909Z] 📩 Command received: 
+[2025-09-27T17:46:22.314Z] 📩 Command received: ٤ ضد بعض .. النهاية محسومة | صلاح الدين Stronghold Crusader #صلاح_الدين #stronghold https://youtu.be/FauIHoEYDbM
+[2025-09-27T17:46:22.514Z] 📩 Command received: معام
+[2025-09-27T17:46:22.734Z] 📩 Command received: 
+[2025-09-27T17:46:22.779Z] 📩 Command received: 
+[2025-09-27T17:46:22.891Z] 📩 Command received: 
+[2025-09-27T17:46:23.034Z] 📩 Command received: تيجي مسار تعاوني
+[2025-09-27T17:46:23.066Z] 📩 Command received: 
+[2025-09-27T17:46:23.081Z] 📩 Command received: تمم
+[2025-09-27T17:46:23.175Z] 📩 Command received: 
+[2025-09-27T17:46:23.227Z] 📩 Command received: 
+[2025-09-27T17:46:23.280Z] 📩 Command received: ?
+[2025-09-27T17:46:23.554Z] 📩 Command received: 
+[2025-09-27T17:46:23.830Z] 📩 Command received: https://www.facebook.com/share/r/1CgCLRVbrU/
+[2025-09-27T17:46:24.107Z] 📩 Command received: 
+[2025-09-27T17:46:24.686Z] 📩 Command received: 
+[2025-09-27T17:46:24.734Z] 📩 Command received: يلا بينا
+[2025-09-27T17:46:25.110Z] 📩 Command received: some1 please help
+[2025-09-27T17:46:25.159Z] 📩 Command received: 
+[2025-09-27T17:46:25.194Z] 📩 Command received: 
+[2025-09-27T17:46:25.278Z] 📩 Command received: انه فيرجن
+[2025-09-27T17:46:25.342Z] 📩 Command received: ٢٠ حلو
+[2025-09-27T17:46:25.380Z] 📩 Command received: 
+[2025-09-27T17:46:25.759Z] 📩 Command received: 
+[2025-09-27T17:47:30.375Z] 📩 Command received: 
+[2025-09-27T17:48:07.726Z] 📩 Command received: !send lmsHW
+[2025-09-27T17:48:08.466Z] 🚀 Triggering LMS agent…
+[2025-09-27T17:48:08.582Z] 📩 Command received: 📤 Starting LMS agent…
+[2025-09-27T17:48:12.674Z] ❌ Exec error: Command failed: python3 lms_agent.py
+python3: can't open file 'lms_agent.py': [Errno 2] No such file or directory
+
+[2025-09-27T17:48:13.305Z] 📩 Command received: ❌ Error during send.
+[2025-09-27T17:48:30.735Z] 📩 Command received: !send lmsHW
+[2025-09-27T17:48:31.281Z] 🚀 Triggering LMS agent…
+[2025-09-27T17:48:31.351Z] ❌ Exec error: Command failed: python3 lms_agent.py
+python3: can't open file 'lms_agent.py': [Errno 2] No such file or directory
+
+[2025-09-27T17:48:31.387Z] 📩 Command received: 📤 Starting LMS agent…
+[2025-09-27T17:48:32.084Z] 📩 Command received: ❌ Error during send.
+[2025-09-27T17:50:25.519Z] ✅ WhatsApp listener is live.
+[2025-09-27T17:51:16.028Z] 📩 Command received: !send lmsHW
+[2025-09-27T17:51:16.800Z] 🚀 Triggering LMS agent…
+[2025-09-27T17:51:16.857Z] ❌ Exec error: Command failed: python3 lms_agent.py
+python3: can't open file 'lms_agent.py': [Errno 2] No such file or directory
+
+[2025-09-27T17:51:16.930Z] 📩 Command received: 📤 Starting LMS agent…
+[2025-09-27T17:51:17.604Z] 📩 Command received: ❌ Error during send.
+[2025-09-27T17:54:13.169Z] ✅ WhatsApp listener is live.
+[2025-09-27T17:54:34.298Z] 📩 Command received: !send lmsHW
+[2025-09-27T17:54:34.894Z] 🚀 Triggering LMS agent…
+[2025-09-27T17:54:34.943Z] ❌ Exec error: Command failed: python3 lms_agent.py
+python3: can't open file 'lms_agent.py': [Errno 2] No such file or directory
+
+[2025-09-27T17:54:35.013Z] 📩 Command received: 📤 Starting LMS agent…
+[2025-09-27T17:54:35.571Z] 📩 Command received: ❌ Error during send.
+[2025-09-27T17:54:47.624Z] 📩 Command received: !status
+[2025-09-27T17:54:48.239Z] 📩 Command received: 📊 Status: ❌ Failed to send.
+[2025-09-27T17:56:31.922Z] ✅ WhatsApp listener is live.
+[2025-09-27T17:58:46.379Z] 📩 Command received: !send lmsHW
+[2025-09-27T17:58:46.992Z] 🚀 Triggering LMS agent…
+[2025-09-27T17:58:47.059Z] ❌ Exec error: Command failed: python3 lms_agent.py
+python3: can't open file 'lms_agent.py': [Errno 2] No such file or directory
+
+[2025-09-27T17:58:47.121Z] 📩 Command received: 📤 Starting LMS agent…
+[2025-09-27T17:58:47.750Z] 📩 Command received: ❌ Error during send.
+[2025-09-27T18:01:39.756Z] 📩 Command received: Hello, this is all the content for today (27/09/2025)

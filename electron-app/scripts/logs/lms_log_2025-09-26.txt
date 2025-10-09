@@ -1,0 +1,48 @@
+[2025-09-26T13:44:30.494Z] ✅ WhatsApp listener is live.
+[2025-09-26T13:44:30.690Z] 📩 Command received: 
+[2025-09-26T13:44:30.690Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:44:31.631Z] 📩 Command received: 
+[2025-09-26T13:44:31.632Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:44:34.492Z] 📩 Command received: 
+[2025-09-26T13:44:34.492Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:44:34.685Z] 📩 Command received: 
+[2025-09-26T13:44:34.685Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:44:35.745Z] 📩 Command received: 
+[2025-09-26T13:44:35.746Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:44:35.753Z] 📩 Command received: 
+[2025-09-26T13:44:35.753Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:44:47.664Z] 📩 Command received: !status
+[2025-09-26T13:44:48.999Z] 📩 Command received: 📊 Status: Idle
+[2025-09-26T13:44:52.434Z] 📩 Command received: 
+[2025-09-26T13:44:52.434Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:44:58.287Z] 📩 Command received: !help
+[2025-09-26T13:44:59.399Z] 📩 Command received: 🆘 *Available Commands:* - !send secret123 → Trigger LMS agent - !status → Show current status - !retry → Retry last send - !cancel → Cancel operation - !preview → Show summary of today's payload - !preview subject_name → Show details for one subject - !log today → Send today's log file - !log YYYY-MM-DD → Send log for specific date - !help → Show this help menu
+[2025-09-26T13:45:00.174Z] 📩 Command received: 
+[2025-09-26T13:45:00.174Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:45:07.420Z] 📩 Command received: 
+[2025-09-26T13:45:07.420Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:45:14.844Z] 📩 Command received: 
+[2025-09-26T13:45:14.845Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:45:16.414Z] 📩 Command received: !send
+[2025-09-26T13:45:17.501Z] 📩 Command received: ❌ Invalid passphrase.
+[2025-09-26T13:45:22.230Z] 📩 Command received: 
+[2025-09-26T13:45:22.231Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:45:28.546Z] 📩 Command received: 
+[2025-09-26T13:45:28.547Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:45:36.137Z] 📩 Command received: 
+[2025-09-26T13:45:36.138Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:45:43.115Z] 📩 Command received: 
+[2025-09-26T13:45:43.115Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T13:45:49.137Z] 📩 Command received: 
+[2025-09-26T13:45:49.137Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T16:41:03.944Z] ✅ WhatsApp listener is live.
+[2025-09-26T16:41:25.490Z] 📩 Command received: !status
+[2025-09-26T16:41:25.566Z] 📩 Command received: 
+[2025-09-26T16:41:25.566Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T16:41:25.585Z] 📩 Command received: الي يلحق
+[2025-09-26T16:41:25.605Z] 📩 Command received: 😂💔
+[2025-09-26T16:41:26.279Z] 📩 Command received: 📊 Status: Idle
+[2025-09-26T16:41:34.737Z] 📩 Command received: 
+[2025-09-26T16:41:34.738Z] ⚠️ Empty message received. Ignoring.
+[2025-09-26T16:44:09.872Z] 📩 Command received: PGC started ?
+[2025-09-26T16:45:27.064Z] 📩 Command received: Will start within 10 min ISA
