@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import os
+import sys
 import json
 import asyncio
 import subprocess
@@ -20,7 +21,8 @@ USERNAME = config.get("username")
 PASSWORD = config.get("password")
 LOGIN_URL = config.get("login_url")
 DASHBOARD_URL = config.get("dashboard_url")
-TARGET_DATE = config.get("target_date")
+TARGET_DATE = sys.argv[1] if len(sys.argv) > 1 else None
+print(f"[INFO] Target date received: {target_date}")
 BASE_URL = config.get("base_url")
 log = setup_logger()
 

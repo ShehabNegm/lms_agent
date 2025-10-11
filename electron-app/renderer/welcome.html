@@ -2,38 +2,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Welcome</title>
+  <title>Welcome to LMS Automation</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body class="h-screen flex flex-col bg-gray-100">
+
+  <!-- 🔝 Navigation Bar -->
   <nav class="flex bg-gray-800 text-white p-4 space-x-6 justify-center">
     <button onclick="navigate('welcome.html')" class="hover:bg-gray-700 p-2 rounded"><i class="fas fa-home"></i></button>
     <button onclick="navigate('dashboard.html')" class="hover:bg-gray-700 p-2 rounded"><i class="fas fa-chart-bar"></i></button>
     <button onclick="navigate('config.html')" class="hover:bg-gray-700 p-2 rounded"><i class="fas fa-cog"></i></button>
   </nav>
 
+  <!-- 🧭 Main Content -->
   <main class="flex-1 p-6">
-    <h1 class="text-2xl font-bold mb-4">👋 Welcome to LMS Automation</h1>
-    <div class="grid grid-cols-2 gap-4 max-w-xl">
-      <button onclick="runScript('download_subjects.js')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-        <i class="fas fa-download mr-2"></i>Download Subjects
-      </button>
-      <button onclick="runScript('generate_payload.js')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-        <i class="fas fa-box mr-2"></i>Generate WhatsApp Payload
-      </button>
-      <button onclick="runScript('send_whatsapp.js')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
-        <i class="fas fa-paper-plane mr-2"></i>Send WhatsApp Message
-      </button>
-      <button onclick="runScript('start_listener.js')" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
-        <i class="fas fa-sync-alt mr-2"></i>Start Listener
-      </button>
+    <h1 class="text-2xl font-bold mb-2">👋 Welcome to LMS Automation</h1>
+    <p class="text-gray-700 mb-6">Use the top bar to navigate between screens.</p>
+
+    <!-- 📋 Control Panel -->
+    <div class="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto">
+      <!-- 📅 Target Date Picker -->
+      <div class="mb-4">
+        <label for="targetDate" class="block text-sm font-medium text-gray-700 mb-1">📅 Target Date</label>
+        <input type="date" id="targetDate" class="p-2 border rounded w-full" />
+      </div>
+
+      <!-- 🔁 Live Mode Toggle -->
+      <div class="mb-6">
+        <label class="inline-flex items-center">
+          <input type="checkbox" id="liveModeToggle" class="mr-2" />
+          <span>🔁 Live Mode</span>
+        </label>
+      </div>
+
+      <!-- 🧭 Action Buttons -->
+      <div class="grid grid-cols-2 gap-4">
+        <button onclick="runScript('lms_agent.py')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center justify-center space-x-2">
+          <i class="fas fa-download"></i><span>Download Subjects</span>
+        </button>
+        <button onclick="runScript('generate_payload.py')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 flex items-center justify-center space-x-2">
+          <i class="fas fa-file-alt"></i><span>Generate Payload</span>
+        </button>
+        <button onclick="runScript('send_whatsapp.js')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 flex items-center justify-center space-x-2">
+          <i class="fas fa-paper-plane"></i><span>Send WhatsApp</span>
+        </button>
+        <button onclick="runScript('listener.js')" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 flex items-center justify-center space-x-2">
+          <i class="fas fa-sync"></i><span>Start Listener</span>
+        </button>
+      </div>
+
+      <!-- 🕒 Last Updated Indicator -->
+      <div class="mt-6 text-sm text-gray-700">
+        Last updated: <span id="lastUpdated">—</span>
+      </div>
+
+      <!-- 📋 Log Panel -->
+      <div class="mt-4 bg-gray-50 border rounded p-4 h-48 overflow-y-auto text-sm" id="logPanel">
+        <p class="text-gray-500">Logs will appear here...</p>
+      </div>
     </div>
   </main>
 
+  <!-- 🔌 Scripts -->
   <script src="scripts/navigation.js"></script>
   <script src="scripts/welcome-actions.js"></script>
+  <script>
+    // Set default date to today
+    document.getElementById('targetDate').value = new Date().toISOString().split('T')[0];
+  </script>
 </body>
 </html>
 
