@@ -10,6 +10,7 @@ from google_drive_downloader import download_drive_file
 from whatsapp_payload import build_payload
 from utils.logger import setup_logger
 
+
 # Load configuration from config.json
 with open("config.json", "r") as f:
     config = json.load(f)
@@ -73,6 +74,10 @@ async def run():
 
                 if href.endswith(".pdf"):
                     await download_pdf_directly(href, subject_name, TARGET_DATE, BASE_URL)
+                elif href.endswith(".jpg"):
+                    continue
+                elif href.endswith(".jpeg"):
+                    continue
                 else:
                     async with page.expect_download() as download_info:
                         await link_el.click()
@@ -82,7 +87,7 @@ async def run():
                     print(f"Downloaded: {download_path}")
                     log.info(f"Downloaded: {download_path}")
 
-	    # Extract comment if available
+	    #Extract comment if available
             comment_els = await block.query_selector_all("div.col-lg-9.col-md-9.col-sm-9 label.col-form-label p")
             if comment_els:
                 comment_texts = []
